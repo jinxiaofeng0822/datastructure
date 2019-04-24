@@ -1,17 +1,15 @@
 package list;
 
-import java.util.LinkedList;
-
 /**
  * @author Jin Xiaofeng
  */
-public class ListStack<E> implements Stack<E>{
+public class ListStack<E> implements Stack<E> {
     Node<E> top;
 
     @Override
     public boolean push(E e) {
-        Node<E> newNode = new Node<>(e,top);
-        top=newNode;
+        Node<E> newNode = new Node<>(e, top);
+        top = newNode;
         return true;
     }
 
@@ -19,25 +17,25 @@ public class ListStack<E> implements Stack<E>{
     public E pop() {
         if (top == null) {
             return null;
-        }else{
+        } else {
             E e = top.item;
-            top=top.next;
+            top = top.next;
             return e;
         }
     }
 
     @Override
     public boolean isEmpty() {
-        return top==null;
+        return top == null;
     }
 
-    private static class Node<E>{
+    private static class Node<E> {
         E item;
         Node<E> next;
 
-        Node(E element,Node<E> next){
-            this.item=element;
-            this.next=next;
+        Node(E element, Node<E> next) {
+            this.item = element;
+            this.next = next;
         }
     }
 
