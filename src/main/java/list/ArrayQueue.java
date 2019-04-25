@@ -1,6 +1,7 @@
 package list;
 
 /**
+ * 数组实现队列
  * @author Jin Xiaofeng
  */
 public class ArrayQueue<E> implements Queue<E>{
@@ -61,24 +62,5 @@ public class ArrayQueue<E> implements Queue<E>{
     @Override
     public boolean isEmpty() {
         return size==0;
-    }
-
-    public static void main(String[] args) {
-        ArrayQueue<String> aq = new ArrayQueue<>(5);
-
-        aq.enQueue("a");
-        aq.enQueue("b");
-        aq.enQueue("c");
-        aq.enQueue("d");
-        System.out.println(aq.deQueue());
-        System.out.println(aq.deQueue());
-        aq.enQueue("e");
-        aq.enQueue("f");
-        aq.enQueue("g");
-        System.out.println(aq.deQueue());
-        System.out.println(aq.deQueue());
-        System.out.println(aq.deQueue());
-        System.out.println(aq.deQueue());
-        System.out.println(aq.deQueue());
     }
 }

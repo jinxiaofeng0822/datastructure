@@ -1,6 +1,7 @@
 package list;
 
 /**
+ * 数组实现栈
  * @author Jin Xiaofeng
  */
 public class ArrayStack<E> implements Stack<E>{

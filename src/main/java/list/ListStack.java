@@ -1,6 +1,7 @@
 package list;
 
 /**
+ * 单向链表实现栈
  * @author Jin Xiaofeng
  */
 public class ListStack<E> implements Stack<E> {
