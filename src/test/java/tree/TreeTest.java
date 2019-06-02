@@ -35,5 +35,7 @@ public class TreeTest {
 
         tree.postOrderTraversal();
 
+        tree.levelOrderTraversal();
+
     }
 }

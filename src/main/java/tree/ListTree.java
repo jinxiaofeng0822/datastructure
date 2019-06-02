@@ -1,7 +1,8 @@
 package tree;
 
-import java.util.ArrayList;
-import java.util.Stack;
+import list.ListQueue;
+
+import java.util.*;
 
 /**
  * @author Jin Xiaofeng
@@ -174,5 +175,23 @@ public class ListTree<T> {
             }
         }
         System.out.println();
+    }
+
+    public void levelOrderTraversal(){
+        ListQueue<ListTree> queue = new ListQueue<>();
+        ListTree<T> t;
+        queue.push(this);
+        while (!queue.isEmpty()){
+            t=queue.pop();
+            System.out.print(t.val);
+            System.out.print(",");
+
+            if(t.left!=null){
+                queue.push(t.left);
+            }
+            if(t.right!=null){
+                queue.push(t.right);
+            }
+        }
     }
 }
