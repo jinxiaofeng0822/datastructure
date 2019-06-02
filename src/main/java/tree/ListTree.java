@@ -1,6 +1,7 @@
 package tree;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * @author Jin Xiaofeng
@@ -127,4 +128,51 @@ public class ListTree<T> {
         }
     }
 
+    public void preOrderTraversalByStack(){
+        Stack<ListTree> stack = new Stack<>();
+        ListTree<T> t = this;
+        while (t!=null||!stack.isEmpty()){
+            while (t!=null) {
+                System.out.print(t.val);//访问
+                System.out.print(",");
+                stack.push(t);
+                //一直向左，并将沿途节点压入堆栈
+                t=t.left;
+            }
+
+            if (!stack.isEmpty()) {
+                t=stack.pop();//节点弹出堆栈
+                if(t.right!=null){
+                    t=t.right;
+                }else{
+                    t=null;
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    public void inOrderTraversalByStack(){
+        Stack<ListTree> stack = new Stack<>();
+        ListTree<T> t = this;
+        while (t!=null||!stack.isEmpty()){
+            while (t!=null) {
+                stack.push(t);
+                //一直向左，并将沿途节点压入堆栈
+                t=t.left;
+            }
+
+            if (!stack.isEmpty()) {
+                t=stack.pop();//节点弹出堆栈
+                System.out.print(t.val);//访问
+                System.out.print(",");
+                if(t.right!=null){
+                    t=t.right;
+                }else{
+                    t=null;
+                }
+            }
+        }
+        System.out.println();
+    }
 }

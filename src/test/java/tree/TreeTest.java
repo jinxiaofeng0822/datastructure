@@ -28,7 +28,12 @@ public class TreeTest {
 
         ListTree<String> tree = new ListTree<>(arrayList);
         tree.preOrderTraversal();
+        tree.preOrderTraversalByStack();
+
         tree.inOrderTraversal();
+        tree.inOrderTraversalByStack();
+
         tree.postOrderTraversal();
+
     }
 }
