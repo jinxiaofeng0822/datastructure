@@ -1,6 +1,8 @@
 package tree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -19,7 +21,7 @@ public class BST extends ListTree<Integer>{
     private boolean checkBST(){
         if (val!=null) {
             Stack<ListTree> stackTree = new Stack<>();
-            Stack<Integer> stackVal = new Stack<>();
+            Queue<Integer> queueVal = new LinkedList<>();
             ListTree<Integer> t = this;
             while (t!=null||!stackTree.isEmpty()){
                 while (t!=null) {
@@ -30,7 +32,7 @@ public class BST extends ListTree<Integer>{
 
                 if (!stackTree.isEmpty()) {
                     t=stackTree.pop();//节点弹出堆栈
-                    stackVal.push(t.val);
+                    queueVal.add(t.val);
                     if(t.right!=null){
                         t=t.right;
                     }else{
@@ -39,12 +41,13 @@ public class BST extends ListTree<Integer>{
                 }
             }
 
-            int lastInt=stackVal.pop();
-            while (!stackVal.isEmpty()){
-                int now = stackVal.pop();
+            int lastInt=queueVal.poll();
+            while (!queueVal.isEmpty()){
+                int now = queueVal.poll();
                 if (lastInt > now) {
                     return false;
                 }
+                lastInt=now;
             }
         }
         return true;
@@ -70,6 +73,30 @@ public class BST extends ListTree<Integer>{
         return null;
     }
 
+    public int findMin(){
+        ListTree<Integer> t = this;
+        while (t!=null){
+            if (t.left == null) {
+                return t.val;
+            }else {
+                t=t.left;
+            }
+        }
+        return 0;
+    }
+
+    public int findMax(){
+        ListTree<Integer> t = this;
+        while (t!=null){
+            if (t.right == null) {
+                return t.val;
+            }else {
+                t=t.right;
+            }
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
         ArrayList<Integer> data=new ArrayList<>();
         data.add(50);
@@ -78,12 +105,13 @@ public class BST extends ListTree<Integer>{
         data.add(35);
         data.add(41);
         data.add(55);
-        data.add(61);
+        data.add(111);
         data.add(34);
         data.add(36);
         BST bst=new BST(data);
-        bst.preOrderTraversal();
-        bst.inOrderTraversal();
-        bst.postOrderTraversal();
+        System.out.println(bst.find(100));
+        System.out.println(bst.findMin());
+        System.out.println(bst.findMax());
+
     }
 }
