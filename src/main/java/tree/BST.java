@@ -1,73 +1,54 @@
 package tree;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  *
  * @author Jin Xiaofeng
  */
-public class BST {
-    private Integer val;
-    private BST left;
-    private BST right;
-
-    public BST(Integer val, BST left, BST right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
+public class BST extends ListTree<Integer>{
 
     public BST(ArrayList<Integer> data) {
-        if (data == null || data.size() == 0) {
-            return;
+        super(data);
+        if(!checkBST()){
+            throw new IllegalArgumentException("当前该树不是二叉搜索树");
         }
-        if (data.size() == 1) {
-            this.val = data.get(0);
-            return;
-        }
+    }
 
-        ArrayList<BST> node = new ArrayList<>();
-        node.add(null);
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i) != null) {
-                BST tree = new BST(data.get(i), null, null);
-                node.add(tree);
-            } else {
-                node.add(null);
-            }
-
-        }
-
-        int size = node.size();
-        for (int i = 1; i < size; i++) {
-            BST tree = node.get(i);
-            if (tree != null) {
-                if (2 * i < size) {
-                    tree.left = node.get(2 * i);
+    private boolean checkBST(){
+        if (val!=null) {
+            Stack<ListTree> stackTree = new Stack<>();
+            Stack<Integer> stackVal = new Stack<>();
+            ListTree<Integer> t = this;
+            while (t!=null||!stackTree.isEmpty()){
+                while (t!=null) {
+                    stackTree.push(t);
+                    //一直向左，并将沿途节点压入堆栈
+                    t=t.left;
                 }
-                if (2 * i + 1 < size) {
-                    tree.right = node.get(2 * i + 1);
+
+                if (!stackTree.isEmpty()) {
+                    t=stackTree.pop();//节点弹出堆栈
+                    stackVal.push(t.val);
+                    if(t.right!=null){
+                        t=t.right;
+                    }else{
+                        t=null;
+                    }
                 }
             }
+
+            int lastInt=stackVal.pop();
+            while (!stackVal.isEmpty()){
+                int now = stackVal.pop();
+                if (lastInt > now) {
+                    return false;
+                }
+            }
         }
-
-        this.val = node.get(1).getVal();
-        this.left = node.get(1).left;
-        this.right = node.get(1).right;
+        return true;
     }
-
-    public Integer getVal() {
-        return val;
-    }
-
-    public BST getLeft() {
-        return left;
-    }
-
-    public BST getRight() {
-        return right;
-    }
-
     /**
      * 二叉查找树
      * @param x 需要查找的树
@@ -76,7 +57,7 @@ public class BST {
     public Integer find(int x){
         return interFind(this,x);
     }
-    private Integer interFind(BST bst,int x){
+    private Integer interFind(ListTree<Integer> bst,int x){
         while (bst != null) {
             if(x>bst.getVal()){
                 return interFind(bst.right,x);
@@ -87,5 +68,22 @@ public class BST {
             }
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Integer> data=new ArrayList<>();
+        data.add(50);
+        data.add(40);
+        data.add(60);
+        data.add(35);
+        data.add(41);
+        data.add(55);
+        data.add(61);
+        data.add(34);
+        data.add(36);
+        BST bst=new BST(data);
+        bst.preOrderTraversal();
+        bst.inOrderTraversal();
+        bst.postOrderTraversal();
     }
 }

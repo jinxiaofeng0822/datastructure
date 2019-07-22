@@ -8,9 +8,9 @@ import java.util.*;
  * @author Jin Xiaofeng
  */
 public class ListTree<T> {
-    private T val;
-    private ListTree left;
-    private ListTree right;
+    protected T val;
+    protected ListTree left;
+    protected ListTree right;
 
     public ListTree(T val, ListTree left, ListTree right) {
         this.val = val;
